@@ -8,3 +8,6 @@
  */
 
 rootProject.name = 'googletest'
+
+include 'googletest'
+include 'googlemock'

@@ -1,0 +1,20 @@
+apply plugin: "base"
+apply plugin: "cpp-library"
+
+library {
+	    source.from file('src/gtest-all.cc')
+        privateHeaders.from file('.')
+        publicHeaders.from file('include')
+}
+
+tasks.withType(CppCompile).configureEach {
+    // Define a preprocessor macro for every binary
+    macros.put("NDEBUG", null)
+
+    // Define a compiler options
+    compilerArgs.add(getProperty("compilerArgs.common"))
+
+    if (toolChain in [GccCompatibleToolChain]) {
+        compilerArgs.add(getProperty("compilerArgs.unixToolChains"))
+    }
+}
